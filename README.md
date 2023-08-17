@@ -22,19 +22,23 @@ It hosts all the console methods including:
 
 ## Usage
 
+[Try it in CodePen](https://codepen.io/akira-cn-the-selector/pen/XWorRbL)
+
 ```js
-import {consoli} from 'https://unpkg.com/consoli';
+import {consoli} from 'https://unpkg.com/dom-consoli';
 const container = document.createElement('div');
 const logger = consoli(container);
 document.body.appendChild(container);
 logger.warn('warning: something is wrong');
 ```
 
+<img src="https://aircode-yvo.b-cdn.net/resource/1692268186801-axbs54e86hh.jpg" width="400">
+
 ### Work with [Consola](https://github.com/unjs/consola)
 
 ```js
 import {consola} from 'https://unpkg.com/consola';
-import {consoli} from './dist/consoli.esm.js';
+import {consoli} from 'https://unpkg.com/dom-consoli';
 const container = document.createElement('div');
 window.console = consoli(container, {hintIcon: false, console: {warn: true, error: true}});
 document.body.appendChild(container);

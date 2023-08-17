@@ -28,6 +28,7 @@ var consoli = (() => {
   margin: 0;
   padding: 0;
   padding-left: 1rem;
+  line-height: 1.5rem;
   overflow-x: scroll;
 }
 
@@ -46,6 +47,7 @@ var consoli = (() => {
   border-top-right-radius: 100%;
   width: 1rem;
   height: 1rem;
+  line-height: 1rem;
   display: inline-block;
   text-align: center;
   color: white;
@@ -60,12 +62,18 @@ var consoli = (() => {
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
+  line-height: 1rem;
   display: inline-block;
   text-align: center;
   color: white;
   position: relative;
   left: -0.5rem;
   transform: scale(0.75);
+}
+
+.consoli__warn.no-hint-icon::before,
+.consoli__error.no-hint-icon::before {
+  display: none;
 }
 
 table.consoli__table {
@@ -421,20 +429,20 @@ table.consoli__table {
     assert: console.assert,
     clear: console.clear
   };
-  var consoli = (container, host = _console) => {
+  var consoli = (container, { console: console2 = _console, hintIcon = true } = {}) => {
     let el = document.createElement("div");
     el.className = "consoli";
     container.append(el);
     const log = (msg, type = "info") => {
       const log2 = document.createElement("pre");
-      log2.className = `consoli__${type}`;
+      log2.className = `consoli__${type}${hintIcon ? "" : " no-hint-icon"}`;
       log2.innerHTML = msg;
       el.appendChild(log2);
     };
     const makeLogger = (type) => {
       return (...args) => {
-        if (host)
-          host[type](...args);
+        if (console2[type])
+          _console[type](...args);
         args = buildMsg(args);
         const msg = args.map((o) => {
           if (o == null)
@@ -468,16 +476,16 @@ table.consoli__table {
       warn: makeLogger("warn"),
       error: makeLogger("error"),
       assert: (cond, ...rest) => {
-        if (host)
-          host.assert(cond, ...rest);
+        if (console2.assert)
+          _console.assert(cond, ...rest);
         if (!cond) {
           const msg = buildMsg(rest).join(" ");
           log(`Assertion failed: ${msg}`, "error");
         }
       },
       clear: () => {
-        if (host)
-          host.clear();
+        if (console2.clear)
+          _console.clear();
         if (groupStack.length > 0) {
           el = groupStack[0];
           groupStack.length = 0;
@@ -485,33 +493,33 @@ table.consoli__table {
         el.innerHTML = "";
       },
       group: (name) => {
-        if (host)
-          host.group(name);
+        if (console2.group)
+          _console.group(name);
         group(name);
       },
       groupCollapsed: (name) => {
-        if (host)
-          host.groupCollapsed(name);
+        if (console2.groupCollapsed)
+          _console.groupCollapsed(name);
         group(name, true);
       },
       groupEnd: () => {
-        if (host)
-          host.groupEnd();
+        if (console2.groupEnd)
+          _console.groupEnd();
         if (groupStack.length > 0) {
           el = groupStack.pop();
         }
       },
       count: (msg = "default") => {
-        if (host)
-          host.count(msg);
+        if (console2.count)
+          _console.count(msg);
         msg = msg.toString();
         counter[msg] = counter[msg] || 0;
         counter[msg]++;
         log(`${msg}: ${counter[msg]}`);
       },
       time: (msg = "default") => {
-        if (host)
-          host.time(msg);
+        if (console2.time)
+          _console.time(msg);
         msg = msg.toString();
         if (!(msg in timer)) {
           timer[msg] = performance.now();
@@ -520,8 +528,8 @@ table.consoli__table {
         }
       },
       countReset: (msg = "default") => {
-        if (host)
-          host.countReset(msg);
+        if (console2.countReset)
+          _console.countReset(msg);
         msg = msg.toString();
         if (msg in counter) {
           delete counter[msg];
@@ -530,8 +538,8 @@ table.consoli__table {
         }
       },
       timeEnd: (msg = "default") => {
-        if (host)
-          host.timeEnd(msg);
+        if (console2.timeEnd)
+          _console.timeEnd(msg);
         msg = msg.toString();
         if (msg in timer) {
           log(`${msg}: ${performance.now() - timer[msg]} ms`);
@@ -541,14 +549,14 @@ table.consoli__table {
         }
       },
       dir: (data) => {
-        if (host)
-          host.dir(data);
+        if (console2.dir)
+          _console.dir(data);
         const list = buildDir(data);
         el.appendChild(list);
       },
       table: (data, columns) => {
-        if (host)
-          host.table(data, columns);
+        if (console2.table)
+          _console.table(data, columns);
         const d = createTableData(data);
         const table = buildTable(d, columns);
         table.addEventListener("click", (e) => {

@@ -13,6 +13,8 @@
     const logger = consoli(container);
     document.body.appendChild(container);
     logger.warn('warning: something is wrong');
+    logger.dir({a: 1, b: 2, c: 3});
+    logger.table([{name: 'yvo', grade: 100}, {name: 'akira', grade: 90}]);
   </script>
 </body>
 </html>

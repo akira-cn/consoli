@@ -1,5 +1,5 @@
 {
-  "name": "consoli",
+  "name": "dom-consoli",
   "version": "0.1.0",
   "description": "Output the content of console to a DOM element",
   "main": "dist/consoli.js",
