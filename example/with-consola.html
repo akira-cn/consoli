@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="module">
+    import {consola} from 'https://unpkg.com/consola';
+    import {consoli} from './dist/consoli.esm.js';
+    const container = document.createElement('div');
+    window.console = consoli(container, {hintIcon: false, console: {warn: true, error: true}});
+    document.body.appendChild(container);
+    consola.info("Using consola 3.0.0");
+    consola.start("Building project...");
+    consola.warn("A new version of consola is available: 3.0.1");
+    consola.success("Project built!");
+    consola.error(new Error("This is an example error. Everything is fine!"));
+    consola.box("I am a simple box");
+    await consola.prompt("Deploy to the production?", {
+      type: "confirm",
+    });
+  </script>
+</body>
+</html>
