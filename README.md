@@ -22,7 +22,7 @@ It hosts all the console methods including:
 
 ## Usage
 
-[Try it in CodePen](https://codepen.io/akira-cn-the-selector/pen/XWorRbL)
+[Try it in CodePen](https://codepen.io/akira-cn-the-selector/pen/JjwPVXm)
 
 ```js
 import {consoli} from 'https://unpkg.com/dom-consoli';
