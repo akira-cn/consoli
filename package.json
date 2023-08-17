@@ -1,9 +1,9 @@
 {
   "name": "dom-consoli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Output the content of console to a DOM element",
   "main": "dist/consoli.js",
-  "module": "dist/consoli.esm.js",
+  "module": "dist/consoli.mjs",
   "type": "module",
   "scripts": {
     "start": "npm run dev",

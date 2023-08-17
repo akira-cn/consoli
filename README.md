@@ -25,7 +25,7 @@ It hosts all the console methods including:
 [Try it in CodePen](https://codepen.io/akira-cn-the-selector/pen/JjwPVXm)
 
 ```js
-import {consoli} from 'https://unpkg.com/dom-consoli';
+import {consoli} from 'https://unpkg.com/dom-consoli/dist/consoli.mjs';
 const container = document.createElement('div');
 const logger = consoli(container);
 document.body.appendChild(container);
@@ -38,7 +38,7 @@ logger.warn('warning: something is wrong');
 
 ```js
 import {consola} from 'https://unpkg.com/consola';
-import {consoli} from 'https://unpkg.com/dom-consoli';
+import {consoli} from 'https://unpkg.com/dom-consoli/dist/consoli.mjs';
 const container = document.createElement('div');
 window.console = consoli(container, {hintIcon: false, console: {warn: true, error: true}});
 document.body.appendChild(container);

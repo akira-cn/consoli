@@ -17,14 +17,14 @@ if(process.env.mode === 'production') {
   esbuild.buildSync({
     ...options,
     format: 'esm',
-    outfile: 'dist/consoli.esm.js',
+    outfile: 'dist/consoli.mjs',
     minify: true,
   });
 } else {
   const ctx = await esbuild.context({
     ...options,
     format: 'esm',
-    outfile: 'example/dist/consoli.esm.js',
+    outfile: 'example/dist/consoli.mjs',
   });
   const server = await ctx.serve({
     servedir: './example',
