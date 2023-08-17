@@ -55,3 +55,13 @@ await consola.prompt("Deploy to the production?", {
 
 <img src="https://aircode-yvo.b-cdn.net/resource/1692267564887-xxgqd5dyohf.jpg" width="400">
 
+### With node.js
+
+```js
+// esm
+import {consoli} from 'dom-consoli';
+
+// cjs
+const {consoli} = require('dom-consoli');
+```
+
